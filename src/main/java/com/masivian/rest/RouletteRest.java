@@ -1,18 +1,41 @@
 package com.masivian.rest;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.masivian.model.Roulette;
+import com.masivian.repository.RouletteRepository;
 
 @RestController
 public class RouletteRest {
 
 	
 	
-	@GetMapping("daniel")
-	public String helloWorld() {
-		return "hola";
-	}
+	@Autowired
+	RouletteRepository rouletteRepo;
 	
+	
+	
+	    @GetMapping("/roulette/{rouletteId}")
+	    @ResponseBody
+	    public ResponseEntity<Roulette> getRoulette(@PathVariable int rouletteId){
+	        Roulette roulette = rouletteRepo.getRoulette(rouletteId);
+	        
+	        return new ResponseEntity<Roulette>(roulette, HttpStatus.OK);
+	    }
+
+	    @PostMapping(value = "/addRoulette",consumes = {"application/json"},produces = {"application/json"})
+	    @ResponseBody
+	    public ResponseEntity<Roulette> addRoulette(@RequestBody Roulette roulette,UriComponentsBuilder builder){
+	        rouletteRepo.addRoulette(roulette);
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setLocation(builder.path("/addRoulette/{id}").buildAndExpand(roulette.getId()).toUri());
+	        return new ResponseEntity<Roulette>(headers, HttpStatus.CREATED);
+	    }
 	
 	
 }
