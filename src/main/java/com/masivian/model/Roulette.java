@@ -12,7 +12,7 @@ public class Roulette implements Serializable {
 	}
 
 	public Roulette(int id, String status) {
-		super();
+		
 		this.id = id;
 		this.status = status;
 	}

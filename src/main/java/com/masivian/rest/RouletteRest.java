@@ -30,11 +30,11 @@ public class RouletteRest {
 
 	    @PostMapping(value = "/addRoulette",consumes = {"application/json"},produces = {"application/json"})
 	    @ResponseBody
-	    public ResponseEntity<Roulette> addRoulette(@RequestBody Roulette roulette,UriComponentsBuilder builder){
+	    public String addRoulette(@RequestBody Roulette roulette,UriComponentsBuilder builder){
 	        rouletteRepo.addRoulette(roulette);
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setLocation(builder.path("/addRoulette/{id}").buildAndExpand(roulette.getId()).toUri());
-	        return new ResponseEntity<Roulette>(headers, HttpStatus.CREATED);
+	        return "El id de la ruleta creada es " + roulette.getId();
 	    }
 	
 	
