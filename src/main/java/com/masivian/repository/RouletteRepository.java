@@ -23,12 +23,12 @@ public class RouletteRepository {
 	    }
 
 	    
-	    public Map<Integer,Roulette> getAllRoulettes(){
+	    public Map<Long,Roulette> getAllRoulettes(){
 	        return hashOperations.entries(KEY);
 	    }
 
 	   
-	    public Roulette getRoulette(int rouletteId){
+	    public Roulette getRoulette(long rouletteId){
 	        return (Roulette) hashOperations.get(KEY,rouletteId);
 	    }
 
@@ -38,7 +38,7 @@ public class RouletteRepository {
 	    }
 
 	    
-	    public void deleteRoulette(int id){
+	    public void deleteRoulette(long id){
 	        hashOperations.delete(KEY,id);
 	    }
 

@@ -1,27 +1,43 @@
 package com.masivian.model;
 
+import java.util.List;
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Roulette implements Serializable {
 
-	private int id;
+import org.springframework.data.annotation.Id;
+
+import com.masivian.utilities.Utilities;
+
+public class Roulette implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	private long id;
+
 	private String status;
+	
+	
+	private Bet bet;
+	
+	
 
 	public Roulette() {
 
-	}
-
-	public Roulette(int id, String status) {
+		this.id = Utilities.generateId();
+		this.status = "Closed";
 		
-		this.id = id;
-		this.status = status;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -32,5 +48,13 @@ public class Roulette implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public Bet getBet() {
+		return bet;
+	}
+
+	public void setBet(Bet bet) {
+		this.bet = bet;
+	}
+
 
 }
