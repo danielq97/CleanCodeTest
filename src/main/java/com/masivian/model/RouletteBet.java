@@ -1,0 +1,68 @@
+package com.masivian.model;
+
+import java.io.Serializable;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+
+import com.masivian.utilities.Utilities;
+
+public class RouletteBet implements Serializable {
+
+	@Id
+	private Long id;
+
+	private String color;
+	private int number;
+	private String result;
+
+	
+	public RouletteBet() {
+
+		
+		this.id = Utilities.generateId();
+
+		this.result = "Roulette still open";
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getColor() {
+		return color;
+	}
+
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+
+	public int getNumber() {
+		return number;
+	}
+
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+
+	public String getResult() {
+		return result;
+	}
+
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+}

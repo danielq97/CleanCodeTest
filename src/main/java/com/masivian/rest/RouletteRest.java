@@ -1,31 +1,27 @@
 package com.masivian.rest;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import com.masivian.model.Bet;
-import com.masivian.model.Roulette;
+import org.springframework.web.bind.annotation.*;
+
+import com.masivian.model.RouletteBet;
+import com.masivian.repository.RouletteBetRepository;
 import com.masivian.repository.RouletteRepository;
 import com.masivian.utilities.Utilities;
+import com.masivian.model.Roulette;
 
 @RestController
 public class RouletteRest {
 
 	@Autowired
-	RoultteRepository rouletteRepo;
+	RouletteRepository rouletteRepo;
 
-	
 	@Autowired
-	BetRepository betRepo;
+	RouletteBetRepository betRepo;
+
 	/**
 	 * Service that allow the creation of new roulettes
 	 * 
@@ -35,26 +31,53 @@ public class RouletteRest {
 	public String createRoulette() {
 		Roulette newRoulette = new Roulette();
 		rouletteRepo.save(newRoulette);
-	Bet nueva = new Bet(2);
-		betRepo.save(nueva);
+
 		return "La nueva ruleta fue creada con el id " + newRoulette.getId();
 	}
 
-//	@GetMapping("/openRoulette/{id}")
-//	public String openRoulette(@PathVariable("id") final long id) {
-//		String response = "Operación denegada";
-//		Roulette roulette = rouletteRepo.getRoulette(id);
-//		if (roulette != null) {
-//			if (!Utilities.rouletteIsOpen(roulette)) {
-//				roulette.setStatus("Open");
-//				rouletteRepo.updateRoulette(roulette);
-//				response = "Operación éxitosa";
-//			} else
-//				response = "Operación denegada";
-//		}
-//
-//		return response;
-//	}
+	/**
+	 * Servive that allow open a roulette for allow bets
+	 * 
+	 * @param id - id of Roulette
+	 * @return
+	 */
+	@PutMapping("/openRoulette/{id}")
+	public String openRoulette(@PathVariable("id") final long id) {
+		String response = "Operación denegada";
+		Roulette roulette = rouletteRepo.findById(id).orElse(null);
+		if (roulette != null) {
+			if (!Utilities.rouletteIsOpen(roulette)) {
+				roulette.setStatus("Open");
+				rouletteRepo.save(roulette);
+				response = "Operación éxitosa";
+			}
+		}
+
+		return response;
+	}
+
+	@PutMapping("/wager/{idRoulette}/{bet}")
+	public String apostar(@PathVariable("idRoulette") final long idRoulette, @PathVariable("bet") final String bet) {
+
+		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
+
+		if (roulette != null) {
+			if (Utilities.rouletteIsOpen(roulette)) {
+				RouletteBet newBet = new RouletteBet();
+				if (Utilities.IsANumber(bet))
+					newBet.setNumber(Integer.parseInt(bet));
+				else
+					newBet.setColor(bet);
+				roulette.addBet(newBet);
+				rouletteRepo.save(roulette);
+				betRepo.save(newBet);
+
+			}
+		}
+
+		return "Fue hecha la apuesta";
+	}
+
 //	
 //	
 //
@@ -83,21 +106,15 @@ public class RouletteRest {
 //	    }
 //	    
 	@GetMapping("/getAllRoulettes")
-	public List<Bet> findAll() {
-		
-		List<Bet> list = new ArrayList<>();
-		
-		list = (List<Bet>) betRepo.findAll();
-		
-		return list;
+	public List<Roulette> findAll() {
 
-}
+		return rouletteRepo.findAll();
+	}
 }
 
-interface BetRepository extends CrudRepository<Bet, Long>{
+interface BetRepository extends CrudRepository<RouletteBet, Long> {
 }
 
+interface RoultteRepository extends CrudRepository<Roulette, Long> {
 
-interface RoultteRepository extends CrudRepository<Roulette, Long>{
-	
 }

@@ -23,4 +23,21 @@ public class Utilities implements Serializable {
 		return  roulette.getStatus().equals("Open") ;
 	}
 
+	
+	public static boolean IsANumber(String input) {
+		
+		try {
+			int number = Integer.parseInt(input);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
+		
+		
+		
+	}
 }
+	
+	

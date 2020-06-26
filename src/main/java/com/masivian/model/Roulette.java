@@ -23,7 +23,7 @@ public class Roulette implements Serializable{
 	private String status;
 	
 	@DBRef
-	private List <Bet> betsOfRoulette = new ArrayList<Bet>();
+	private ArrayList <RouletteBet> betsOfRoulette = new ArrayList<RouletteBet>();
 	
 	
 
@@ -35,13 +35,22 @@ public class Roulette implements Serializable{
 		
 	}
 
-	public List<Bet> getBetsOfRoulette() {
+
+
+	public ArrayList<RouletteBet> getBetsOfRoulette() {
 		return betsOfRoulette;
 	}
 
-	public void setBetsOfRoulette(List<Bet> betsOfRoulette) {
+
+
+	public void setBetsOfRoulette(ArrayList<RouletteBet> betsOfRoulette) {
 		this.betsOfRoulette = betsOfRoulette;
 	}
+	public void addBet(RouletteBet bet) {
+		this.betsOfRoulette.add(bet);
+	}
+
+
 
 	public long getId() {
 		return id;
