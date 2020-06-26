@@ -57,7 +57,7 @@ public class Utilities implements Serializable {
 	
 	public static String resultOfBet(RouletteBet rouletteBet,RouletteResult rouletteResult) {
 		if(rouletteBet.getColor()!=null) {
-			if(rouletteBet.getColor().equals(rouletteResult.getColor())) {
+			if(rouletteBet.getColor().equalsIgnoreCase(rouletteResult.getColor())) {
 				return "Won";
 			}else
 				return "Lost";

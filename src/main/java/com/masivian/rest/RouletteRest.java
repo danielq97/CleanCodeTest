@@ -13,10 +13,21 @@ import com.masivian.model.RouletteResult;
 import com.masivian.repository.RouletteBetRepository;
 import com.masivian.repository.RouletteRepository;
 import com.masivian.utilities.Utilities;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import com.masivian.model.Roulette;
 
 @RestController
 @RequestMapping("/roulettes")
+@Tag(name="roulette", description = "The roulette API")
 public class RouletteRest {
 
 	@Autowired
@@ -25,11 +36,27 @@ public class RouletteRest {
 	@Autowired
 	RouletteBetRepository betRepo;
 
+	
+	
 	/**
 	 * Service that allow the creation of new roulettes
 	 * 
 	 * @return String - A message indicating the id of the new roulette created
 	 */
+	@Operation(
+			summary = "Create new roulette",
+			description = "Service that allow the creation of new roulettes",
+			tags = "roulette"
+			)	
+	@ApiResponse(
+			responseCode = "200",
+			description = "Succesful operation",
+			
+			content= @Content(
+					examples = @ExampleObject(value = "New roullete was created with id 34345454599"),
+					schema = @Schema(defaultValue= "New roullete was created with id " + "idNumber")
+					)
+			)
 	@PostMapping
 	public String createRoulette() {
 		Roulette newRoulette = new Roulette();
@@ -44,6 +71,12 @@ public class RouletteRest {
 	 * @param id - id of Roulette
 	 * @return
 	 */
+	@Operation(
+			summary = "Create new roulette",
+			description = "Service that allow the creation of new roulettes",
+			tags = "roulette"
+			)
+	@Parameters(@Parameter(name="id",required=true,description="id of roulette"))
 	@PutMapping(value="/{id}/openRoulette")
 	public String openRoulette(@PathVariable("id") final long id) {
 		String response = "Operation rejected";
@@ -59,8 +92,13 @@ public class RouletteRest {
 		return response;
 	}
 
-	@PutMapping(value = "/{idRoulette}/{bet}")
-	public String wager(@PathVariable("idRoulette") final long idRoulette, @PathVariable("bet") final String bet) {
+	
+	
+	
+
+	
+	@PutMapping(value = "/{idRoulette}/{bet}/{value}")
+	public String wager(@PathVariable("idRoulette") final long idRoulette, @PathVariable("bet") final String bet,@PathVariable("value") final String value) {
 
 		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
 
@@ -71,6 +109,7 @@ public class RouletteRest {
 					newBet.setNumber(bet);
 				else
 					newBet.setColor(bet);
+				 	newBet.setValue(value);
 				roulette.addBet(newBet);
 				rouletteRepo.save(roulette);
 				betRepo.save(newBet);
@@ -124,32 +163,7 @@ public class RouletteRest {
 		return response;
 	}
 
-//	
-//	
-//
-//	@GetMapping("/roulette/{rouletteId}")
-//	@ResponseBody
-//	public ResponseEntity<Roulette> getRoulette(@PathVariable long rouletteId) {
-//		Roulette roulette = rouletteRepo.getRoulette(rouletteId);
-//
-//		return new ResponseEntity<Roulette>(roulette, HttpStatus.OK);
-//	}
-//
-//	@PostMapping(value = "/addRoulette", consumes = { "application/json" }, produces = { "application/json" })
-//	@ResponseBody
-//	public String addRoulette(@RequestBody Roulette roulette, UriComponentsBuilder builder) {
-//		rouletteRepo.addRoulette(roulette);
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setLocation(builder.path("/addRoulette/{id}").buildAndExpand(roulette.getId()).toUri());
-//		return "El id de la ruleta creada es " + roulette.getId();
-//	}
 
-//	    @RequestMapping("/getAllRoulettes")
-//	    @ResponseBody
-//	    public ResponseEntity<Map<Long,Roulette>> getAllRoulettes(){
-//	        Map<Long,Roulette> roulettes =  rouletteRepo.getAllRoulettes();
-//	        return new ResponseEntity<Map<Long,Roulette>>(roulettes, HttpStatus.OK);
-//	    }
 //	    
 	@GetMapping("/getAllRoulettes")
 	public List<Roulette> findAll() {

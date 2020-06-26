@@ -15,6 +15,7 @@ public class RouletteBet implements Serializable {
 	private String color;
 	private String number;
 	private String result;
+	private String value;
 
 	
 	public RouletteBet() {
@@ -66,6 +67,16 @@ public class RouletteBet implements Serializable {
 
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+
+	public String getValue() {
+		return value;
+	}
+
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 }
