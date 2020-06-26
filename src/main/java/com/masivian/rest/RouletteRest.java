@@ -29,7 +29,7 @@ public class RouletteRest {
 	 * 
 	 * @return String - A message indicating the id of the new roulette created
 	 */
-	@PostMapping("/createNewRoulette")
+	@PostMapping("/roulettes")
 	public String createRoulette() {
 		Roulette newRoulette = new Roulette();
 		rouletteRepo.save(newRoulette);
@@ -38,12 +38,12 @@ public class RouletteRest {
 	}
 
 	/**
-	 * Servive that allow open a roulette for allow bets
+	 * Service that allow open a roulette for bets. 
 	 * 
 	 * @param id - id of Roulette
 	 * @return
 	 */
-	@PutMapping("/openRoulette/{id}")
+	@PutMapping("/roulettes/{id}")
 	public String openRoulette(@PathVariable("id") final long id) {
 		String response = "Operación denegada";
 		Roulette roulette = rouletteRepo.findById(id).orElse(null);
@@ -81,7 +81,7 @@ public class RouletteRest {
 	}
 	
 	
-	@PutMapping("/closeRoulette/{idRoulette}")
+	@PutMapping("/clo/{idRoulette}")
 	public Roulette closeRoulette(@PathVariable("idRoulette") final long idRoulette) {
 
 		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
