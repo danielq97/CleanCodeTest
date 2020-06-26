@@ -4,29 +4,25 @@ import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
-
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Reference;
-
-import org.springframework.data.redis.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.masivian.utilities.Utilities;
 
-
+@Document(collection = "Roulettes")
 public class Roulette implements Serializable{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 
 	@Id
 	private long id;
 
-	@Indexed
+	
 	private String status;
 	
-	@Reference
+	@DBRef
 	private List <Bet> betsOfRoulette = new ArrayList<Bet>();
 	
 	
@@ -34,10 +30,8 @@ public class Roulette implements Serializable{
 	public Roulette() {
 
 		this.id = Utilities.generateId();
-		this.status = "Closed";
+		this.status = "Closed";	
 		
-		
-		betsOfRoulette.add(new Bet(2));
 		
 	}
 
