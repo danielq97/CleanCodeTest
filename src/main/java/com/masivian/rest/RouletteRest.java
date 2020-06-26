@@ -107,6 +107,21 @@ public class RouletteRest {
 
 		return roulette;
 	}
+	
+	@GetMapping("/roulettes")
+	public String findAllRoulettes() {
+
+		String response = "";
+		
+		
+		
+		ArrayList<Roulette> roulettes = (ArrayList<Roulette>) rouletteRepo.findAll();
+		for(Roulette roulette : roulettes) {
+			response += "RouletteId:" + "\t" + roulette.getId()+ "\n" + "Status:" + "\t\t" + roulette.getStatus() + "\n\n";
+		}
+		
+		return response;
+	}
 
 //	
 //	
@@ -142,9 +157,4 @@ public class RouletteRest {
 	}
 }
 
-interface BetRepository extends CrudRepository<RouletteBet, Long> {
-}
 
-interface RoultteRepository extends CrudRepository<Roulette, Long> {
-
-}
