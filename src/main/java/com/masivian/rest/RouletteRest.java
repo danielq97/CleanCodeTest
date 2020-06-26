@@ -16,6 +16,7 @@ import com.masivian.utilities.Utilities;
 import com.masivian.model.Roulette;
 
 @RestController
+@RequestMapping("/roulettes")
 public class RouletteRest {
 
 	@Autowired
@@ -29,7 +30,7 @@ public class RouletteRest {
 	 * 
 	 * @return String - A message indicating the id of the new roulette created
 	 */
-	@PostMapping("/roulettes")
+	@PostMapping
 	public String createRoulette() {
 		Roulette newRoulette = new Roulette();
 		rouletteRepo.save(newRoulette);
@@ -43,9 +44,9 @@ public class RouletteRest {
 	 * @param id - id of Roulette
 	 * @return
 	 */
-	@PutMapping("/roulettes/{id}")
+	@PutMapping(value="/{id}/openRoulette")
 	public String openRoulette(@PathVariable("id") final long id) {
-		String response = "Operación denegada";
+		String response = "Operation rejected";
 		Roulette roulette = rouletteRepo.findById(id).orElse(null);
 		if (roulette != null) {
 			if (!Utilities.rouletteIsOpen(roulette)) {
@@ -58,7 +59,7 @@ public class RouletteRest {
 		return response;
 	}
 
-	@PutMapping("/wager/{idRoulette}/{bet}")
+	@PutMapping(value = "/{idRoulette}/{bet}")
 	public String wager(@PathVariable("idRoulette") final long idRoulette, @PathVariable("bet") final String bet) {
 
 		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
@@ -81,7 +82,7 @@ public class RouletteRest {
 	}
 	
 	
-	@PutMapping("/clo/{idRoulette}")
+	@PutMapping(value = "/{idRoulette}/closeRoulette")
 	public Roulette closeRoulette(@PathVariable("idRoulette") final long idRoulette) {
 
 		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
@@ -108,7 +109,7 @@ public class RouletteRest {
 		return roulette;
 	}
 	
-	@GetMapping("/roulettes")
+	@GetMapping
 	public String findAllRoulettes() {
 
 		String response = "";
