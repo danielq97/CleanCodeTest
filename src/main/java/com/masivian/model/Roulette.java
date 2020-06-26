@@ -27,6 +27,20 @@ public class Roulette implements Serializable{
 	
 	
 
+	private RouletteResult result;
+	
+	public RouletteResult getResult() {
+		return result;
+	}
+
+
+
+	public void setResult(RouletteResult result) {
+		this.result = result;
+	}
+
+
+
 	public Roulette() {
 
 		this.id = Utilities.generateId();

@@ -13,7 +13,7 @@ public class RouletteBet implements Serializable {
 	private Long id;
 
 	private String color;
-	private int number;
+	private String number;
 	private String result;
 
 	
@@ -46,12 +46,15 @@ public class RouletteBet implements Serializable {
 	}
 
 
-	public int getNumber() {
+
+
+
+	public String getNumber() {
 		return number;
 	}
 
 
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 

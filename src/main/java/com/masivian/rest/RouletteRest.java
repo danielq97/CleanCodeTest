@@ -1,5 +1,6 @@
 package com.masivian.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.*;
 
 import com.masivian.model.RouletteBet;
+import com.masivian.model.RouletteResult;
 import com.masivian.repository.RouletteBetRepository;
 import com.masivian.repository.RouletteRepository;
 import com.masivian.utilities.Utilities;
@@ -57,15 +59,15 @@ public class RouletteRest {
 	}
 
 	@PutMapping("/wager/{idRoulette}/{bet}")
-	public String apostar(@PathVariable("idRoulette") final long idRoulette, @PathVariable("bet") final String bet) {
+	public String wager(@PathVariable("idRoulette") final long idRoulette, @PathVariable("bet") final String bet) {
 
 		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
 
 		if (roulette != null) {
 			if (Utilities.rouletteIsOpen(roulette)) {
 				RouletteBet newBet = new RouletteBet();
-				if (Utilities.IsANumber(bet))
-					newBet.setNumber(Integer.parseInt(bet));
+				if (Utilities.IsANumber(bet)) 
+					newBet.setNumber(bet);
 				else
 					newBet.setColor(bet);
 				roulette.addBet(newBet);
@@ -76,6 +78,34 @@ public class RouletteRest {
 		}
 
 		return "Fue hecha la apuesta";
+	}
+	
+	
+	@PutMapping("/closeRoulette/{idRoulette}")
+	public Roulette closeRoulette(@PathVariable("idRoulette") final long idRoulette) {
+
+		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
+
+		if (roulette != null) {
+			if (Utilities.rouletteIsOpen(roulette)) {
+				roulette.setStatus("Closed");
+				
+				RouletteResult rouletteResult = new RouletteResult();
+				roulette.setResult(rouletteResult);
+				
+			ArrayList<RouletteBet> rouletteBets = roulette.getBetsOfRoulette();
+			for (RouletteBet rouletteBet : rouletteBets) {
+				rouletteBet.setResult(Utilities.resultOfBet(rouletteBet, rouletteResult));				
+			}
+				roulette.setBetsOfRoulette(rouletteBets);
+				rouletteRepo.save(roulette);
+				betRepo.saveAll(rouletteBets);
+				
+
+			}
+		}
+
+		return roulette;
 	}
 
 //	
