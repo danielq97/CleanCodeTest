@@ -5,9 +5,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-import org.springframework.data.annotation.Id;
+
+import org.springframework.data.annotation.Reference;
+
+import org.springframework.data.redis.core.index.Indexed;
 
 import com.masivian.utilities.Utilities;
+
 
 public class Roulette implements Serializable{
 
@@ -19,10 +23,11 @@ public class Roulette implements Serializable{
 	@Id
 	private long id;
 
+	@Indexed
 	private String status;
 	
-	
-	private Bet bet;
+	@Reference
+	private List <Bet> betsOfRoulette = new ArrayList<Bet>();
 	
 	
 
@@ -31,6 +36,17 @@ public class Roulette implements Serializable{
 		this.id = Utilities.generateId();
 		this.status = "Closed";
 		
+		
+		betsOfRoulette.add(new Bet(2));
+		
+	}
+
+	public List<Bet> getBetsOfRoulette() {
+		return betsOfRoulette;
+	}
+
+	public void setBetsOfRoulette(List<Bet> betsOfRoulette) {
+		this.betsOfRoulette = betsOfRoulette;
 	}
 
 	public long getId() {
@@ -48,13 +64,7 @@ public class Roulette implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Bet getBet() {
-		return bet;
-	}
-
-	public void setBet(Bet bet) {
-		this.bet = bet;
-	}
+	
 
 
 }
