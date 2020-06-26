@@ -18,4 +18,8 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
 
       `git clone https://github.com/danielq97/CleanCodeTest.git`
 
-​/roulettes​/getAllRoulettes
+/roulettes/{id}/openRoulette
+/roulettes/{idRoulette}/{bet}/{value}
+/roulettes
+/roulettes
+/roulettes/{idRoulette}/closeRoulette
