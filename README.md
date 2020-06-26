@@ -15,6 +15,7 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
 ## Instrucciones
 
 1. Clonar el repositorio:
-      **git clone https://github.com/danielq97/CleanCodeTest.git**
+
+      `git clone https://github.com/danielq97/CleanCodeTest.git`
 
 ​/roulettes​/getAllRoulettes
