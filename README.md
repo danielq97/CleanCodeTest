@@ -2,6 +2,9 @@
 
 Autor: Daniel Quintero
 
-##Introducción
+## Introducción
 
 Para cumplir con la prueba técnica construí una API Web RESTful con Spring Boot y MongoDB.
+
+
+​/roulettes​/getAllRoulettes
