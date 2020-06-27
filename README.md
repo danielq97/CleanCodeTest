@@ -87,4 +87,6 @@ Ejemplo para probar en Postman (colocar verbo POST):
   
   Si probamos una vez la operación será rechazada, ya que la ruleta está abierta.
   
-    ![](images/img6.JPG)    
+  ![](images/img6.JPG)    
+  
+  ### Tercer Endpoint
