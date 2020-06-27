@@ -31,11 +31,15 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
 
 ![](images/img1.JPG)
 
-   Ahora debemos iniciar la Spring Boot Application. Para ello necesitamos consturir el jar de la aplicaión, y ya después se puede ejecutar.
+   Ahora debemos iniciar la Spring Boot Application. Para ello necesitamos consturir el jar de la aplicación, mediante Maven. Una vez construido el jar lo podemos ejecutar.
 
+4. Construir el jar de la aplicación:
 
+        mvn package
 
+5. Ejecutar el jar de la aplicación:
 
+        java -jar target/springboot-mongodb-0.0.1-SNAPSHOT.jar
 ## Endpoints
 
 /roulettes/{id}/openRoulette
