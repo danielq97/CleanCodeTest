@@ -31,15 +31,23 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
 
 ![](images/img1.JPG)
 
-   Ahora debemos iniciar la Spring Boot Application. Para ello necesitamos consturir el jar de la aplicación, mediante Maven. Una vez construido el jar lo podemos ejecutar.
+   Ahora debemos iniciar la Spring Boot Application. Para ello necesitamos construir el jar de la aplicación, mediante Maven. Una vez construido el jar lo podemos ejecutar. 
 
-4. Construir el jar de la aplicación:
+4. Construir el jar de la aplicación. Desde la terminal accedemos al repositorio clonado:
 
         mvn package
+
+   Una vez construido el jar de la aplicación nos saldrá algo como esto:
+   
+![](images/img2.JPG)   
 
 5. Ejecutar el jar de la aplicación:
 
         java -jar target/springboot-mongodb-0.0.1-SNAPSHOT.jar
+        
+   Una vez ejecutado el jar nos saldrá algo como esto:  
+   
+ ![](images/img3.JPG)   
         
    Ahora ya estamos preparados para probar los Endpoints.        
 ## Endpoints
@@ -63,6 +71,7 @@ Ejemplo para probar en Postman (colocar verbo POST):
 
       http://localhost:8080/roulettes
 
+ ![](images/img4.JPG)
 
  ### Segundo Endpoint 
  
@@ -72,4 +81,10 @@ Ejemplo para probar en Postman (colocar verbo POST):
  
  Ejemplo para probar en Postman (colocar verbo PUT y id de una ruleta creada anteriormente):
  
-      http://localhost:8080/roulettes/{id}/openRoulette      
+      http://localhost:8080/roulettes/{id}/openRoulette
+      
+  ![](images/img5.JPG)     
+  
+  Si probamos una vez la operación será rechazada, ya que la ruleta está abierta.
+  
+    ![](images/img6.JPG)    
