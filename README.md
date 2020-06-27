@@ -59,9 +59,17 @@ Se procede a probar mediante Postman. Recordar poner el método de petición cor
 
 Endpoint que permite la creación de una nueva ruleta. No necesita ningún input. Devuelve id de la rouleta creada.
 
-Ejemplo para probar, en Postman (colocar verbo POST):
+Ejemplo para probar en Postman (colocar verbo POST):
 
       http://localhost:8080/roulettes
 
 
-  
+ ### Segundo Endpoint 
+ 
+ - /roulettes/{id}/openRoulette PUT
+ 
+ Endpoint de apertura de ruleta. Recibe de input el id de una ruleta. Devuelve un mensaje que confirme que la operación fue éxitosa o denegada. Después de realizar este request se permite peticiones de apuestas. Para probar escogere el id de la ruleta anteriormente creada, 1477182534087671817
+ 
+ Ejemplo para probar en Postman (colocar verbo PUT y id de una ruleta creada anteriormente):
+ 
+      http://localhost:8080/roulettes/{id}/openRoulette      
