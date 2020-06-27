@@ -33,11 +33,6 @@ public class RouletteRest {
 	@Autowired
 	RouletteBetRepository betRepo;
 
-	/**
-	 * Service that allow the creation of new roulettes
-	 * 
-	 * @return String - A message indicating the id of the new roulette created
-	 */
 	@PostMapping
 	public String createRoulette() {
 		Roulette newRoulette = new Roulette();
@@ -46,12 +41,6 @@ public class RouletteRest {
 		return "A new roulette was created with id " + newRoulette.getId();
 	}
 
-	/**
-	 * Service that allow open a roulette for bets.
-	 * 
-	 * @param id - id of Roulette
-	 * @return
-	 */
 	@PutMapping(value = "/{id}/openRoulette")
 	public String openRoulette(@PathVariable("id") final long id) {
 		String response = "Operation rejected";
@@ -78,7 +67,7 @@ public class RouletteRest {
 				if (Utilities.IsANumber(bet))
 					newBet.setNumber(bet);
 				else
-				newBet.setColor(bet);
+					newBet.setColor(bet);
 				newBet.setValue(value);
 				roulette.addBet(newBet);
 				rouletteRepo.save(roulette);
