@@ -17,6 +17,14 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
 1. Clonar el repositorio:
 
       `git clone https://github.com/danielq97/CleanCodeTest.git`
+      
+2. Desde una terminal iniciar el servidor de Mongo, en Windows:
+
+      `mongod`
+      
+   En Linux:
+   
+        sudo systemctl start mongodb
 
 /roulettes/{id}/openRoulette
 /roulettes/{idRoulette}/{bet}/{value}
