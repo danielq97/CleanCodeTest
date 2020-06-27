@@ -43,7 +43,7 @@ public class RouletteRest {
 		Roulette newRoulette = new Roulette();
 		rouletteRepo.save(newRoulette);
 
-		return "La nueva ruleta fue creada con el id " + newRoulette.getId();
+		return "A new roulette was created with id " + newRoulette.getId();
 	}
 
 	/**
@@ -51,9 +51,7 @@ public class RouletteRest {
 	 * 
 	 * @param id - id of Roulette
 	 * @return
-	 */
-	@Operation(summary = "Create new roulette", description = "Service that allow the creation of new roulettes", tags = "roulette")
-	@Parameters(@Parameter(name = "id", required = true, description = "id of roulette"))
+	 */	
 	@PutMapping(value = "/{id}/openRoulette")
 	public String openRoulette(@PathVariable("id") final long id) {
 		String response = "Operation rejected";
@@ -62,7 +60,7 @@ public class RouletteRest {
 			if (!Utilities.rouletteIsOpen(roulette)) {
 				roulette.setStatus("Open");
 				rouletteRepo.save(roulette);
-				response = "Operación éxitosa";
+				response = "Succesful operation";
 			}
 		}
 
@@ -112,7 +110,7 @@ public class RouletteRest {
 	}
 
 	@GetMapping
-	public String getAllRoulettes() {
+	public String getAllRoulettesWithStatus() {
 		String response = "";
 		ArrayList<Roulette> roulettes = (ArrayList<Roulette>) rouletteRepo.findAll();
 		for (Roulette roulette : roulettes) {
