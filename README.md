@@ -29,7 +29,7 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
         
    Una vez iniciado el servidor de Mongo nos debera aparecer algo como esto en la terminal:
 
-![](images/img1.jpg)
+![](images/img1.JPG)
 
    Ahora debemos iniciar la Spring Boot Application. Para ello necesitamos consturir el jar de la aplicaión, y ya después se puede ejecutar.
 
