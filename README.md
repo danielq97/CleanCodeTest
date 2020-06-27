@@ -55,9 +55,9 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
 Construí 5 Endpoints, están en el orden que se enunciaron en la prueba:
 
 - /roulettes                                 POST
-- /roulettes/{id}/openRoulette               PUT
-- /roulettes/{idRoulette}/{bet}/{value}      PUT
-- /roulettes/{idRoulette}/closeRoulette      PUT
+- /roulettes/{rouletteId}/openRoulette       PUT
+- /roulettes/{rouletteId}/{bet}/{value}      PUT
+- /roulettes/{rouletteId}/closeRoulette      PUT
 - /roulettes                                 GET
 
 Se procede a probar mediante Postman. Recordar poner el método de petición correcto.
@@ -65,23 +65,23 @@ Se procede a probar mediante Postman. Recordar poner el método de petición cor
 
 - /roulettes  POST
 
-Endpoint que permite la creación de una nueva ruleta. No necesita ningún input. Devuelve id de la rouleta creada.
+Endpoint que permite la creación de una nueva ruleta. No necesita ningún input. Devuelve el id de la rouleta creada.
 
-Ejemplo para probar en Postman (colocar verbo POST):
+Para probar en Postman (colocar verbo POST):
 
       http://localhost:8080/roulettes
 
  ![](images/img4.JPG)
 
- ### Segundo Endpoint 
+### Segundo Endpoint 
  
- - /roulettes/{id}/openRoulette PUT
+ - /roulettes/{rouletteId}/openRoulette PUT
  
- Endpoint de apertura de ruleta. Recibe de input el id de una ruleta. Devuelve un mensaje que confirme que la operación fue éxitosa o denegada. Después de realizar este request se permite peticiones de apuestas. Para probar escogere el id de la ruleta anteriormente creada, 1477182534087671817
+Endpoint de apertura de ruleta. Recibe de input el id de una ruleta. Devuelve un mensaje que confirme que la operación fue éxitosa o denegada. Después de realizar este request se permite peticiones de apuestas. Para probar escogeré el id de la ruleta anteriormente creada, 1477182534087671817
  
- Ejemplo para probar en Postman (colocar verbo PUT y id de una ruleta creada anteriormente):
+Para probar en Postman (colocar verbo PUT y id de una ruleta creada anteriormente):
  
-      http://localhost:8080/roulettes/{id}/openRoulette
+      http://localhost:8080/roulettes/{rouletteId}/openRoulette
       
   ![](images/img5.JPG)     
   
@@ -89,4 +89,43 @@ Ejemplo para probar en Postman (colocar verbo POST):
   
   ![](images/img6.JPG)    
   
-  ### Tercer Endpoint
+### Tercer Endpoint
+  
+  - /roulettes/{rouletteId}/{bet}/{value} PUT
+  
+Endpoint de apuesta a ruleta. Se puede apostar un número (del 0 al 36) o color (red or black) y un valor de apuesta (máximo 10000 dólares). Recibe de inputs, el id de la ruleta, la apuesta (ya sea color o número), y  el valor de la apuesta. Para probar escogeré la ruleta creada, id 1477182534087671817, color black, valor 2000.
+  
+Para probar en Postman (colocar verbo PUT, id de ruleta creada anteriormente, número o color válido y valor de apuesta válido):
+
+      http://localhost:8080/roulettes/{rouletteId}/{bet}/{value}
+      
+   ![](images/img7.JPG)
+   
+### Cuarto Endpoint
+   
+   - /roulettes/{rouletteId}/closeRoulette PUT
+   
+Endpoint de cierre de apuestas de una ruleta. Recibe de input el id de una ruleta. Devuelve el resultado de cada una de las apuestas hechas desde la apertura de la ruleta. Hasta el cierre de esta. Para probar escogeré la ruleta creada, id 1477182534087671817 (creé más apuestas previamente).
+
+Para probar en Postman (colocar verbo PUT y id de ruleta creada anteriormente):
+
+       http://localhost:8080/roulettes/{rouletteId}/closeRoulette
+       
+![](images/img8.JPG)
+
+### Quinto Endpoint
+
+- /roulettes  GET
+
+Endpoint de listado de ruletas creadas con sus estados. No necesita ningún input. Para probar, previamente había creado más ruletas.
+
+Para probar en Postman (colocar verbo GET):
+
+        http://localhost:8080/roulettes
+
+![](images/img9.JPG)
+
+
+
+
+
