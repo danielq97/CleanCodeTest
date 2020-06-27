@@ -29,7 +29,7 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
         
 Una vez iniciado el servidor de Mongo nos debera aparecer algo como esto en la terminal:
 
-![](images/DockerfileBackend.png)
+![](images/img1.jpg)
 
 
 
