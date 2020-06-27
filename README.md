@@ -11,6 +11,11 @@ Para cumplir con la prueba técnica construí una API Web RESTful con Spring Boo
 Los servicios REST están desarrollados en Spring Boot y se conecta a base de datos MongoDB.
   - Se debe tener instalado Mongo para iniciar servidor de base de datos.
   - Se debe tener inslatado Maven para compilar e iniciar Spring Boot Application.
+  
+## Recomendaciones
+
+- La Spring Boot Aplication corre por el puerto 8080 por defecto y Mongo corre por el puerto 27017 por defecto, si en esos puertos hay corriendo otros servicios, para probar todo hay que detenerlos.
+- La solución está desarrollada en un proyecto Maven. Para visualziar el código se recomienda STS (Spring Tool Suite) o IntelliJ IDEA.
 
 ## Instrucciones
 
@@ -27,7 +32,7 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
    
         sudo systemctl start mongodb
         
-   Una vez iniciado el servidor de Mongo nos debera aparecer algo como esto en la terminal:
+   Una vez iniciado el servidor de Mongo nos debera aparecer algo como esto en la terminal (mi terminal es Git Bash desde Windows):
 
 ![](images/img1.JPG)
 
@@ -77,12 +82,16 @@ Para probar en Postman (colocar verbo POST):
  
  - /roulettes/{rouletteId}/openRoulette PUT
  
-Endpoint de apertura de ruleta. Recibe de input el id de una ruleta. Devuelve un mensaje que confirme que la operación fue éxitosa o denegada. Después de realizar este request se permite peticiones de apuestas. Para probar escogeré el id de la ruleta anteriormente creada, 1477182534087671817
+Endpoint de apertura de ruleta. Recibe de input el id de una ruleta. Devuelve un mensaje que confirme que la operación fue éxitosa o denegada. Después de realizar este request se permite peticiones de apuestas. Para probar escogeré el id de la ruleta anteriormente creada, 163786231565777267
  
 Para probar en Postman (colocar verbo PUT y id de una ruleta creada anteriormente):
  
       http://localhost:8080/roulettes/{rouletteId}/openRoulette
       
+Ejemplo:
+
+      http://localhost:8080/roulettes/163786231565777267/openRoulette
+
   ![](images/img5.JPG)     
   
   Si probamos una vez la operación será rechazada, ya que la ruleta está abierta.
@@ -93,37 +102,50 @@ Para probar en Postman (colocar verbo PUT y id de una ruleta creada anteriorment
   
   - /roulettes/{rouletteId}/{bet}/{value} PUT
   
-Endpoint de apuesta a ruleta. Se puede apostar un número (del 0 al 36) o color (red or black) y un valor de apuesta (máximo 10000 dólares). Recibe de inputs, el id de la ruleta, la apuesta (ya sea color o número), y  el valor de la apuesta. Para probar escogeré la ruleta creada, id 1477182534087671817, color black, valor 2000.
+Endpoint de apuesta a ruleta. Se puede apostar un número (del 0 al 36) o color (red or black) y un valor de apuesta (máximo 10000 dólares). Recibe de inputs, el id de la ruleta, la apuesta (ya sea color o número), y  el valor de la apuesta. En los HEADERS se pasa un id de usuario, el servicio que haga la petición ya realizó autenticación y validación de que el cliente tiene el crédito neceario para realizar la apuesta.Para probar escogeré la ruleta creada, id 163786231565777267, color black, valor 2000.
   
-Para probar en Postman (colocar verbo PUT, id de ruleta creada anteriormente, número o color válido y valor de apuesta válido):
+Para probar en Postman (colocar verbo PUT, id de ruleta creada anteriormente, número o color válido y valor de apuesta válido, en la sección de headers de Postman colocar como key userId y como value un número que representa el id de un usuario):
 
       http://localhost:8080/roulettes/{rouletteId}/{bet}/{value}
       
-   ![](images/img7.JPG)
+Ejemplo:
+
+      http://localhost:8080/roulettes/163786231565777267/black/2000
+      
+![](images/img7.JPG)
+   
+Si ingresamos parametros de apuesta no válidos, la apuesta no será efectuada:
+
+![](images/img8.JPG)
    
 ### Cuarto Endpoint
    
    - /roulettes/{rouletteId}/closeRoulette PUT
    
-Endpoint de cierre de apuestas de una ruleta. Recibe de input el id de una ruleta. Devuelve el resultado de cada una de las apuestas hechas desde la apertura de la ruleta. Hasta el cierre de esta. Para probar escogeré la ruleta creada, id 1477182534087671817 (creé más apuestas previamente).
+Endpoint de cierre de apuestas de una ruleta. Recibe de input el id de una ruleta. Devuelve el resultado de cada una de las apuestas hechas desde la apertura de la ruleta. Hasta el cierre de esta. Para probar escogeré la ruleta creada, id 163786231565777267 (creé más apuestas previamente).
 
 Para probar en Postman (colocar verbo PUT y id de ruleta creada anteriormente):
 
        http://localhost:8080/roulettes/{rouletteId}/closeRoulette
        
-![](images/img8.JPG)
+Ejemplo:
+
+       http://localhost:8080/roulettes/163786231565777267/closeRoulette
+       
+![](images/img9.JPG)
 
 ### Quinto Endpoint
 
 - /roulettes  GET
 
-Endpoint de listado de ruletas creadas con sus estados. No necesita ningún input. Para probar, previamente había creado más ruletas.
+Endpoint de listado de ruletas creadas con sus estados. No necesita ningún input. Para probar, previamente había creado más ruletas y aperturado algunas.
 
 Para probar en Postman (colocar verbo GET):
 
         http://localhost:8080/roulettes
-
-![](images/img9.JPG)
+        
+        
+![](images/img10.JPG)
 
 
 
