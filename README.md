@@ -27,11 +27,16 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
    
         sudo systemctl start mongodb
         
-Una vez iniciado el servidor de Mongo nos debera aparecer algo como esto en la terminal:
+   Una vez iniciado el servidor de Mongo nos debera aparecer algo como esto en la terminal:
 
 ![](images/img1.jpg)
 
+   Ahora debemos iniciar la Spring Boot Application. Para ello necesitamos consturir el jar de la aplicaión, y ya después se puede ejecutar.
 
+
+
+
+## Endpoints
 
 /roulettes/{id}/openRoulette
 /roulettes/{idRoulette}/{bet}/{value}
