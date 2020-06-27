@@ -51,7 +51,7 @@ public class RouletteRest {
 	 * 
 	 * @param id - id of Roulette
 	 * @return
-	 */	
+	 */
 	@PutMapping(value = "/{id}/openRoulette")
 	public String openRoulette(@PathVariable("id") final long id) {
 		String response = "Operation rejected";
@@ -84,8 +84,8 @@ public class RouletteRest {
 				rouletteRepo.save(roulette);
 				betRepo.save(newBet);
 				response = "The bet wasn't made because id of roulette doesn't exist or roulette is closed";
-			}else
-			response = "The bet was made";
+			} else
+				response = "The bet was made";
 		}
 
 		return response;

@@ -12,59 +12,44 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.masivian.utilities.Utilities;
 
 @Document(collection = "Roulettes")
-public class Roulette implements Serializable{
-
-
+public class Roulette implements Serializable {
 
 	@Id
 	private long id;
 
-	
 	private String status;
-	
+
 	@DBRef
-	private ArrayList <RouletteBet> betsOfRoulette = new ArrayList<RouletteBet>();
-	
-	
+	private ArrayList<RouletteBet> betsOfRoulette = new ArrayList<RouletteBet>();
 
 	private RouletteResult result;
-	
+
 	public RouletteResult getResult() {
 		return result;
 	}
-
-
 
 	public void setResult(RouletteResult result) {
 		this.result = result;
 	}
 
-
-
 	public Roulette() {
 
 		this.id = Utilities.generateId();
-		this.status = "Closed";	
-		
-		
+		this.status = "Closed";
+
 	}
-
-
 
 	public ArrayList<RouletteBet> getBetsOfRoulette() {
 		return betsOfRoulette;
 	}
 
-
-
 	public void setBetsOfRoulette(ArrayList<RouletteBet> betsOfRoulette) {
 		this.betsOfRoulette = betsOfRoulette;
 	}
+
 	public void addBet(RouletteBet bet) {
 		this.betsOfRoulette.add(bet);
 	}
-
-
 
 	public long getId() {
 		return id;
@@ -81,7 +66,5 @@ public class Roulette implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-
 
 }

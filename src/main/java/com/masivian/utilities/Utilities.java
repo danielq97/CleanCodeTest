@@ -5,16 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
 import com.masivian.model.Roulette;
 import com.masivian.model.RouletteBet;
 import com.masivian.model.RouletteResult;
 
 public class Utilities implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public static long generateId() {
@@ -34,39 +30,38 @@ public class Utilities implements Serializable {
 			int number = Integer.parseInt(input);
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
 			return false;
 		}
 
 	}
-	
+
 	public static String colorForResult(int number) {
-		if(number==0) {
+		if (number == 0) {
 			return "Green";
-		}else {
-			List<Integer> blackNumbers = Arrays.asList(2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,36);
-			if(blackNumbers.contains(number)) {
+		} else {
+			List<Integer> blackNumbers = Arrays.asList(2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33,
+					36);
+			if (blackNumbers.contains(number)) {
 				return "Black";
-			}else
+			} else
 				return "Red";
-		
-			
+
 		}
-		
+
 	}
-	
-	public static String resultOfBet(RouletteBet rouletteBet,RouletteResult rouletteResult) {
-		if(rouletteBet.getColor()!=null) {
-			if(rouletteBet.getColor().equalsIgnoreCase(rouletteResult.getColor())) {
+
+	public static String resultOfBet(RouletteBet rouletteBet, RouletteResult rouletteResult) {
+		if (rouletteBet.getColor() != null) {
+			if (rouletteBet.getColor().equalsIgnoreCase(rouletteResult.getColor())) {
 				return "Won";
-			}else
+			} else
 				return "Lost";
-		}else {
-			if(rouletteBet.getNumber().equals(rouletteResult.getNumber())) {
+		} else {
+			if (rouletteBet.getNumber().equals(rouletteResult.getNumber())) {
 				return "Won";
-			}else
+			} else
 				return "Lost";
 		}
 	}
-	
+
 }
