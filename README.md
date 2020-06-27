@@ -40,10 +40,16 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
 5. Ejecutar el jar de la aplicación:
 
         java -jar target/springboot-mongodb-0.0.1-SNAPSHOT.jar
+        
+   Ahora ya estamos preparados para probar los Endpoints.        
 ## Endpoints
 
-/roulettes/{id}/openRoulette
-/roulettes/{idRoulette}/{bet}/{value}
-/roulettes
-/roulettes
-/roulettes/{idRoulette}/closeRoulette
+Construí 5 Endpoints, están en el orden que se enunciaron en la prueba:
+
+- /roulettes                                 POST
+- /roulettes/{id}/openRoulette               PUT
+- /roulettes/{idRoulette}/{bet}/{value}      PUT
+- /roulettes/{idRoulette}/closeRoulette       PUT
+- /roulettes                                 GET
+
+### Primer Endpoint
