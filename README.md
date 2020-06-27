@@ -49,15 +49,19 @@ Construí 5 Endpoints, están en el orden que se enunciaron en la prueba:
 - /roulettes                                 POST
 - /roulettes/{id}/openRoulette               PUT
 - /roulettes/{idRoulette}/{bet}/{value}      PUT
-- /roulettes/{idRoulette}/closeRoulette       PUT
+- /roulettes/{idRoulette}/closeRoulette      PUT
 - /roulettes                                 GET
 
 Se procede a probar mediante Postman. Recordar poner el método de petición correcto.
 ### Primer Endpoint 
 
-/roulettes
+- /roulettes  POST
 
 Endpoint que permite la creación de una nueva ruleta. No necesita ningún input. Devuelve id de la rouleta creada.
 
-Ejemplo para probar, en Postman:
+Ejemplo para probar, en Postman (colocar verbo POST):
+
+      http://localhost:8080/roulettes
+
+
   
