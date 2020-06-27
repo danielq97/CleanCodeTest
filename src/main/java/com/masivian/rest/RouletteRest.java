@@ -70,6 +70,7 @@ public class RouletteRest {
 	@PutMapping(value = "/{idRoulette}/{bet}/{value}")
 	public String wager(@PathVariable("idRoulette") final long idRoulette, @PathVariable("bet") final String bet,
 			@PathVariable("value") final String value) {
+		String response = "";
 		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
 		if (roulette != null) {
 			if (Utilities.rouletteIsOpen(roulette)) {
@@ -82,10 +83,12 @@ public class RouletteRest {
 				roulette.addBet(newBet);
 				rouletteRepo.save(roulette);
 				betRepo.save(newBet);
-			}
+				response = "The bet wasn't made because id of roulette doesn't exist or roulette is closed";
+			}else
+			response = "The bet was made";
 		}
 
-		return "Fue hecha la apuesta";
+		return response;
 	}
 
 	@PutMapping(value = "/{idRoulette}/closeRoulette")
