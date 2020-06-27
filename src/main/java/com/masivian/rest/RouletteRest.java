@@ -78,15 +78,15 @@ public class RouletteRest {
 				if (Utilities.IsANumber(bet))
 					newBet.setNumber(bet);
 				else
-					newBet.setColor(bet);
+				newBet.setColor(bet);
 				newBet.setValue(value);
 				roulette.addBet(newBet);
 				rouletteRepo.save(roulette);
 				betRepo.save(newBet);
-				response = "The bet wasn't made because id of roulette doesn't exist or roulette is closed";
-			} else
 				response = "The bet was made";
-		}
+			}
+		} else
+			response = "The bet wasn't made because id of roulette doesn't exist or roulette is closed";
 
 		return response;
 	}
