@@ -22,41 +22,22 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import com.masivian.model.Roulette;
 
 @RestController
 @RequestMapping("/roulettes")
-@Tag(name="roulette", description = "The roulette API")
+@Tag(name = "roulette", description = "The roulette API")
 public class RouletteRest {
-
 	@Autowired
 	RouletteRepository rouletteRepo;
-
 	@Autowired
 	RouletteBetRepository betRepo;
 
-	
-	
 	/**
 	 * Service that allow the creation of new roulettes
 	 * 
 	 * @return String - A message indicating the id of the new roulette created
 	 */
-	@Operation(
-			summary = "Create new roulette",
-			description = "Service that allow the creation of new roulettes",
-			tags = "roulette"
-			)	
-	@ApiResponse(
-			responseCode = "200",
-			description = "Succesful operation",
-			
-			content= @Content(
-					examples = @ExampleObject(value = "New roullete was created with id 34345454599"),
-					schema = @Schema(defaultValue= "New roullete was created with id " + "idNumber")
-					)
-			)
 	@PostMapping
 	public String createRoulette() {
 		Roulette newRoulette = new Roulette();
@@ -66,18 +47,14 @@ public class RouletteRest {
 	}
 
 	/**
-	 * Service that allow open a roulette for bets. 
+	 * Service that allow open a roulette for bets.
 	 * 
 	 * @param id - id of Roulette
 	 * @return
 	 */
-	@Operation(
-			summary = "Create new roulette",
-			description = "Service that allow the creation of new roulettes",
-			tags = "roulette"
-			)
-	@Parameters(@Parameter(name="id",required=true,description="id of roulette"))
-	@PutMapping(value="/{id}/openRoulette")
+	@Operation(summary = "Create new roulette", description = "Service that allow the creation of new roulettes", tags = "roulette")
+	@Parameters(@Parameter(name = "id", required = true, description = "id of roulette"))
+	@PutMapping(value = "/{id}/openRoulette")
 	public String openRoulette(@PathVariable("id") final long id) {
 		String response = "Operation rejected";
 		Roulette roulette = rouletteRepo.findById(id).orElse(null);
@@ -92,84 +69,57 @@ public class RouletteRest {
 		return response;
 	}
 
-	
-	
-	
-
-	
 	@PutMapping(value = "/{idRoulette}/{bet}/{value}")
-	public String wager(@PathVariable("idRoulette") final long idRoulette, @PathVariable("bet") final String bet,@PathVariable("value") final String value) {
-
+	public String wager(@PathVariable("idRoulette") final long idRoulette, @PathVariable("bet") final String bet,
+			@PathVariable("value") final String value) {
 		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
-
 		if (roulette != null) {
 			if (Utilities.rouletteIsOpen(roulette)) {
 				RouletteBet newBet = new RouletteBet();
-				if (Utilities.IsANumber(bet)) 
+				if (Utilities.IsANumber(bet))
 					newBet.setNumber(bet);
 				else
 					newBet.setColor(bet);
-				 	newBet.setValue(value);
+				newBet.setValue(value);
 				roulette.addBet(newBet);
 				rouletteRepo.save(roulette);
 				betRepo.save(newBet);
-
 			}
 		}
 
 		return "Fue hecha la apuesta";
 	}
-	
-	
+
 	@PutMapping(value = "/{idRoulette}/closeRoulette")
 	public Roulette closeRoulette(@PathVariable("idRoulette") final long idRoulette) {
-
 		Roulette roulette = rouletteRepo.findById(idRoulette).orElse(null);
-
 		if (roulette != null) {
 			if (Utilities.rouletteIsOpen(roulette)) {
 				roulette.setStatus("Closed");
-				
 				RouletteResult rouletteResult = new RouletteResult();
 				roulette.setResult(rouletteResult);
-				
-			ArrayList<RouletteBet> rouletteBets = roulette.getBetsOfRoulette();
-			for (RouletteBet rouletteBet : rouletteBets) {
-				rouletteBet.setResult(Utilities.resultOfBet(rouletteBet, rouletteResult));				
-			}
+				ArrayList<RouletteBet> rouletteBets = roulette.getBetsOfRoulette();
+				for (RouletteBet rouletteBet : rouletteBets) {
+					rouletteBet.setResult(Utilities.resultOfBet(rouletteBet, rouletteResult));
+				}
 				roulette.setBetsOfRoulette(rouletteBets);
 				rouletteRepo.save(roulette);
 				betRepo.saveAll(rouletteBets);
-				
-
 			}
 		}
 
 		return roulette;
 	}
-	
-	@GetMapping
-	public String findAllRoulettes() {
 
+	@GetMapping
+	public String getAllRoulettes() {
 		String response = "";
-		
-		
-		
 		ArrayList<Roulette> roulettes = (ArrayList<Roulette>) rouletteRepo.findAll();
-		for(Roulette roulette : roulettes) {
-			response += "RouletteId:" + "\t" + roulette.getId()+ "\n" + "Status:" + "\t\t" + roulette.getStatus() + "\n\n";
+		for (Roulette roulette : roulettes) {
+			response += "RouletteId:" + "\t" + roulette.getId() + "\n" + "Status:" + "\t\t" + roulette.getStatus()
+					+ "\n\n";
 		}
-		
+
 		return response;
 	}
-
-
-//	    
-	@GetMapping("/getAllRoulettes")
-	public List<Roulette> findAll() {
-
-		return rouletteRepo.findAll();
-	}
 }
-
-
