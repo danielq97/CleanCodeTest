@@ -15,7 +15,7 @@ Los servicios REST están desarrollados en Spring Boot y se conecta a base de da
 ## Recomendaciones
 
 - La Spring Boot Aplication corre por el puerto 8080 por defecto y Mongo corre por el puerto 27017 por defecto, si en esos puertos hay corriendo otros servicios, para probar todo hay que detenerlos.
-- La solución está desarrollada en un proyecto Maven. Para visualziar el código se recomienda STS (Spring Tool Suite) o IntelliJ IDEA.
+- La solución está desarrollada en un proyecto Maven. Para visualizar el código se recomienda STS (Spring Tool Suite) o IntelliJ IDEA.
 
 ## Instrucciones
 
@@ -70,7 +70,7 @@ Se procede a probar mediante Postman. Recordar poner el método de petición cor
 
 - /roulettes  POST
 
-Endpoint que permite la creación de una nueva ruleta. No necesita ningún input. Devuelve el id de la rouleta creada.
+Endpoint que permite la creación de una nueva ruleta. No necesita ningún input. Devuelve el id de la rouleta creada. Con este endpoint se crea la colección Roulette en base de datos.
 
 Para probar en Postman (colocar verbo POST):
 
@@ -146,6 +146,18 @@ Para probar en Postman (colocar verbo GET):
         
         
 ![](images/img10.JPG)
+
+## Dependencias del proyecto
+
+En el pom.xml aparte de utilizar las depencias de ***Spring Web*** y ***MongoDB***, utilicé una de **OpenAPI** (que tiene la configuración el paquete com.masivian.config) que permite generar una documentación sencilla de los Web Services y la deja en el siguiente formato:
+
+![](images/img11.JPG)
+
+## Notas
+
+- No usé ORMs.
+- Las variables de configuración que utilicé son para la conexión a la base de datos y esta variables son leídas de variables de entorno que están en el fichero **application.properties** ubicado en **src/main/resources** .
+- Investigué sobre CloudWatch y leí que era para monitorear logs y el estado de aplicaciones desplegadas en EC2 o otras herramientas de AWS. 
 
 
 
